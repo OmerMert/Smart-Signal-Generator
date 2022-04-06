@@ -11,9 +11,9 @@ class myApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.blueGrey[400],
+        backgroundColor: Colors.blueGrey[50],
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.green[300],
           title: Text(
             'Signal Controller',
             style: TextStyle(color: Colors.black, fontSize: 24),
@@ -43,14 +43,15 @@ class SignalType extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), color: Colors.white),
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.blueGrey[200]),
       child: Column(
         children: [
           Container(
             margin: EdgeInsets.all(20.0),
             child: Text(
               'Signal Type',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Buttons(),
@@ -73,7 +74,6 @@ class Buttons extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
                   onPressed: () => {}, child: Image.asset('images/sine.png')),
@@ -86,7 +86,6 @@ class Buttons extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
                   onPressed: () => {},
@@ -101,7 +100,6 @@ class Buttons extends StatelessWidget {
               height: 75,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
                   onPressed: () => {},
@@ -124,14 +122,15 @@ class Amplitude extends StatelessWidget {
       width: 500,
       height: 150,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), color: Colors.white),
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.blueGrey[200]),
       child: Column(
         children: [
           Container(
             margin: EdgeInsets.all(20.0),
             child: Text(
               'Amplitude',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           FrequencySlider(),
@@ -149,17 +148,20 @@ class Frequency extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), color: Colors.white),
-      child: Column(children: [
-        Container(
-          margin: EdgeInsets.all(20.0),
-          child: Text(
-            'Frequency',
-            style: TextStyle(fontSize: 20),
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.blueGrey[200]),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              'Frequency',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        FrequencySlider(),
-      ]),
+          FrequencySlider(),
+        ],
+      ),
     );
   }
 }
@@ -176,16 +178,24 @@ class _FrequencySliderState extends State<FrequencySlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Slider(
-      value: _currentSliderValue,
-      max: 100,
-      divisions: 5,
-      label: _currentSliderValue.round().toString(),
-      onChanged: (double value) {
-        setState(() {
-          _currentSliderValue = value;
-        });
-      },
-    );
+    return Column(children: [
+      Slider(
+        value: _currentSliderValue,
+        max: 100,
+        divisions: 20,
+        onChanged: (double value) {
+          setState(() {
+            _currentSliderValue = value;
+          });
+        },
+      ),
+      Container(
+        margin: EdgeInsets.all(20.0),
+        child: Text(
+          '${_currentSliderValue.round()} Hz',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ]);
   }
 }
