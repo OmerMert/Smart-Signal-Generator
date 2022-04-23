@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ControlPage.dart';
+import 'package:smart_signal_generator/FlutterBlueApp.dart';
 
 void main() {
   runApp(myApp());
@@ -26,17 +26,7 @@ class HomePage extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       ),
-      body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        RaisedButton(
-            child: Text('Main Page'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ControlPage()),
-              );
-            })
-      ])),
+      body: FlutterBlueApp()
     );
   }
 }
