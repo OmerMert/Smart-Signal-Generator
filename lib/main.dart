@@ -19,13 +19,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
-      appBar: AppBar(
-        backgroundColor: Colors.green[300],
-        title: Text(
-          'Signal Controller',
-          style: TextStyle(color: Colors.black, fontSize: 24),
-        ),
-      ),
       body: FlutterBlueApp()
     );
   }

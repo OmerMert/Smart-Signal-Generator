@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:smart_signal_generator/ControlPage.dart';
 
 class ScanResultTile extends StatelessWidget {
   const ScanResultTile({Key? key, required this.result, this.onTap})
@@ -84,6 +85,7 @@ class ScanResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ExpansionTile(
       title: _buildTitle(context),
       leading: Text(result.rssi.toString()),
@@ -91,24 +93,12 @@ class ScanResultTile extends StatelessWidget {
         child: Text('CONNECT'),
         color: Colors.black,
         textColor: Colors.white,
-        onPressed: (result.advertisementData.connectable) ? onTap : null,
+        onPressed: result.advertisementData.localName == 'gDevice-beacon' ? ()
+        {
+          Navigator.push(context, 
+          MaterialPageRoute(builder: (context) => ControlPage()));
+        } : null,
       ),
-      children: <Widget>[
-        _buildAdvRow(
-            context, 'Complete Local Name', result.advertisementData.localName),
-        _buildAdvRow(context, 'Tx Power Level',
-            '${result.advertisementData.txPowerLevel ?? 'N/A'}'),
-        _buildAdvRow(context, 'Manufacturer Data',
-            getNiceManufacturerData(result.advertisementData.manufacturerData)),
-        _buildAdvRow(
-            context,
-            'Service UUIDs',
-            (result.advertisementData.serviceUuids.isNotEmpty)
-                ? result.advertisementData.serviceUuids.join(', ').toUpperCase()
-                : 'N/A'),
-        _buildAdvRow(context, 'Service Data',
-            getNiceServiceData(result.advertisementData.serviceData)),
-      ],
     );
   }
 }

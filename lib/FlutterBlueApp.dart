@@ -34,6 +34,7 @@ class BluetoothOffScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
+      
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -61,6 +62,13 @@ class FindDevicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[300],
+        title: Text(
+          'Signal Controller',
+          style: TextStyle(color: Colors.black, fontSize: 24),
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () =>
             FlutterBlue.instance.startScan(timeout: Duration(seconds: 4)),
@@ -131,9 +139,10 @@ class FindDevicesScreen extends StatelessWidget {
             );
           } else {
             return FloatingActionButton(
-                child: Icon(Icons.search),
-                onPressed: () => FlutterBlue.instance
-                    .startScan(timeout: Duration(seconds: 4)));
+              backgroundColor: Colors.green[300],
+              child: Icon(Icons.search),
+              onPressed: () => FlutterBlue.instance
+                  .startScan(timeout: Duration(seconds: 4)));
           }
         },
       ),
@@ -194,42 +203,7 @@ class DeviceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(device.name),
-        actions: <Widget>[
-          StreamBuilder<BluetoothDeviceState>(
-            stream: device.state,
-            initialData: BluetoothDeviceState.connecting,
-            builder: (c, snapshot) {
-              VoidCallback? onPressed;
-              String text;
-              switch (snapshot.data) {
-                case BluetoothDeviceState.connected:
-                  onPressed = () => device.disconnect();
-                  text = 'DISCONNECT';
-                  break;
-                case BluetoothDeviceState.disconnected:
-                  onPressed = () => device.connect();
-                  text = 'CONNECT';
-                  break;
-                default:
-                  onPressed = null;
-                  text = snapshot.data.toString().substring(21).toUpperCase();
-                  break;
-              }
-              return FlatButton(
-                  onPressed: onPressed,
-                  child: Text(
-                    text,
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .button
-                        ?.copyWith(color: Colors.white),
-                  ));
-            },
-          )
-        ],
-      ),
+      
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
