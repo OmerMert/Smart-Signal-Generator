@@ -58,6 +58,9 @@ class Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    int signaltype = 0;
+
     return Row(
       children: [
         Expanded(
@@ -68,7 +71,8 @@ class Buttons extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
-                  onPressed: () => {}, child: Image.asset('images/sine.png')),
+                  onPressed: () => {signaltype = 0}, 
+                  child: Image.asset('images/sine.png')),
             ),
           ),
         ),
@@ -80,7 +84,7 @@ class Buttons extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
-                  onPressed: () => {},
+                  onPressed: () => {signaltype = 1},
                   child: Image.asset('images/triangle.png')),
             ),
           ),
@@ -94,7 +98,7 @@ class Buttons extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.black)),
               child: TextButton(
-                  onPressed: () => {},
+                  onPressed: () => {signaltype = 2},
                   child: Image.asset('images/sawtooth.png')),
             ),
           ),
@@ -125,10 +129,44 @@ class Amplitude extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          FrequencySlider(),
+          AmplitudeSlider(),
         ],
       ),
     );
+  }
+}
+
+class AmplitudeSlider extends StatefulWidget {
+  const AmplitudeSlider({Key? key}) : super(key: key);
+
+  @override
+  State<AmplitudeSlider> createState() => _AmplitudeSliderState();
+}
+
+class _AmplitudeSliderState extends State<AmplitudeSlider> {
+  double _currentSliderValue = 20;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Slider(
+        value: _currentSliderValue,
+        max: 100,
+        divisions: 20,
+        onChanged: (double value) {
+          setState(() {
+            _currentSliderValue = value;
+          });
+        },
+      ),
+      Container(
+        margin: EdgeInsets.all(20.0),
+        child: Text(
+          '${_currentSliderValue.round()} V',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ]);
   }
 }
 
